@@ -5,6 +5,8 @@ import javax.swing.*;
 public class Search implements ActionListener {
     private JFrame mainFrame;
     private JLabel statusLabel;
+    private JLabel urlLabel, keywordLabel;
+
     private JPanel controlPanel;
 
     private JMenuBar mb;
@@ -58,13 +60,18 @@ public class Search implements ActionListener {
 //        mb.add(help);
 //        mb.add(more);
         //end menu at top
+        urlLabel = new JLabel("enter URL");
+        keywordLabel = new JLabel("enter keyword");
+
 
         ta = new JTextField();
         ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
         tb = new JTextField();
         tb.setBounds(50,5,WIDTH-200, HEIGHT-50);
         //mainFrame.add(mb);  //add menu bar
-        mainFrame.add(ta);//add typing area
+        mainFrame.add(urlLabel);
+        mainFrame.add(ta);
+        mainFrame.add(keywordLabel);//add typing area
         mainFrame.add(tb);
        // mainFrame.setJMenuBar(mb); //set menu bar
 
