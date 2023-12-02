@@ -14,7 +14,7 @@ public class Search implements ActionListener {
     private JMenuItem cut, copy, paste, selectAll, share;
     private JTextField ta;//typing area
     private JTextField tb;//typing area
-
+    private JTextArea resultsPanel;
     private int WIDTH=800;
     private int HEIGHT=700;
 
@@ -31,7 +31,7 @@ public class Search implements ActionListener {
     private void prepareGUI() {
         mainFrame = new JFrame("Java SWING Examples");
         mainFrame.setSize(WIDTH, HEIGHT);
-        mainFrame.setLayout(new GridLayout(3, 1));
+        mainFrame.setLayout(new GridLayout(4, 1));
 
         //menu at top
         cut = new JMenuItem("cut");
@@ -68,6 +68,7 @@ public class Search implements ActionListener {
         ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
         tb = new JTextField();
         tb.setBounds(50,5,WIDTH-200, HEIGHT-50);
+        resultsPanel = new JTextArea();
         //mainFrame.add(mb);  //add menu bar
         mainFrame.add(urlLabel);
         mainFrame.add(ta);
@@ -88,6 +89,7 @@ public class Search implements ActionListener {
 
         mainFrame.add(controlPanel);
         mainFrame.add(statusLabel);
+        mainFrame.add(resultsPanel);
         mainFrame.setVisible(true);
     }
 
