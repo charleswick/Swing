@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import javax.swing.*;
 
 public class Search implements ActionListener {
@@ -138,6 +141,100 @@ public class Search implements ActionListener {
 
             if (command.equals("Search")) {
                 statusLabel.setText("Search Button clicked.");
+                int endSpot=0;
+                int indexSpot=0;
+                int beginIndex =0;
+                String keyword = tb.getText();
+
+                try {
+
+                    URL url = new URL(ta.getText());
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(url.openStream())
+                    );
+                    String line;
+                    while ( (line = reader.readLine()) != null ) {
+                        if(line.contains("href=")&&line.contains(keyword.toLowerCase())){
+                            //System.out.println("og"+line);
+//
+                            if (line.contains("https")){
+                                beginIndex = line.indexOf("https");
+                            }
+                            if (line.contains("www")){
+                                beginIndex = line.indexOf("www");
+                            } else{
+                                beginIndex=line.indexOf("href=")+6;
+                            }
+
+
+
+                            if (line.substring(beginIndex).contains("\'")&&line.substring(beginIndex).contains("/")){
+                                endSpot = line.indexOf("\'", beginIndex+1);
+                            }
+                            if (line.substring(beginIndex).contains("\"")&&line.substring(beginIndex).contains("/")){
+                                endSpot = line.indexOf("\"", beginIndex+1);
+                            }
+                            if (line.substring(beginIndex).contains("\"") && line.substring(beginIndex).contains("\'")&&line.substring(beginIndex).contains("/")){
+                                if (line.indexOf("\'") > line.indexOf("\"")&&line.substring(beginIndex).contains("/")){
+                                    endSpot = line.indexOf("\"", beginIndex+1);
+                                }else{
+                                    endSpot = line.indexOf("\'", beginIndex+1);
+                                }
+                            }
+                            resultsPanel.append(line.substring(beginIndex,endSpot)+'\n');
+
+//                     indexSpot = line.indexOf("href=");
+//                     if(line.contains("\"")&&line.contains("www")){
+//                        int endQuoteSpot =line.indexOf("\"",indexSpot+6);
+//                        endSpot = endQuoteSpot;
+//                         System.out.println(line.substring(indexSpot+6,endSpot));
+//
+//
+//                      // System.out.println(line.substring(indexSpot+6,endQuoteSpot));
+//
+//                    }
+//                    if(line.substring(indexSpot+6).contains("\'")){
+//                        int singleQuoteSpot =line.indexOf("\'",indexSpot+6);
+//                        endSpot = singleQuoteSpot;
+//
+//
+//                        //   System.out.println(line.substring(indexSpot+6,singleQuoteSpot));
+//
+//
+//                    }
+//                    if(line.substring(indexSpot+6).contains("\'")&&(line.substring(indexSpot+6).contains("\""))){
+//                        int singleQuoteSpot =line.indexOf("\'",indexSpot+6);
+//                        int endQuoteSpot =line.indexOf("\"",indexSpot+6);
+//
+//                        if(singleQuoteSpot>endQuoteSpot){
+//                           endSpot = endQuoteSpot;
+//
+//                        }
+//                        else{
+//                         //   System.out.println(line.substring(indexSpot+6,singleQuoteSpot));
+//                             endSpot = singleQuoteSpot;
+//
+//                        }
+//
+
+
+                            //}
+
+
+
+
+
+
+                        }
+
+
+
+
+                    }
+                    reader.close();
+                } catch(Exception ex) {
+                    System.out.println(ex);
+                }
             } else if (command.equals("Submit")) {
                 statusLabel.setText("Submit Button clicked.");
             } else if (command.equals("Cancel")){
