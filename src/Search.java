@@ -18,6 +18,7 @@ public class Search implements ActionListener {
     private JTextField ta;//typing area
     private JTextField tb;//typing area
     private JTextArea resultsPanel;
+    private JScrollPane scroll;
     private int WIDTH=800;
     private int HEIGHT=700;
 
@@ -93,7 +94,11 @@ public class Search implements ActionListener {
         mainFrame.add(controlPanel);
         mainFrame.add(statusLabel);
         mainFrame.add(resultsPanel);
+        JScrollPane pane = new JScrollPane(resultsPanel);
+        mainFrame.add(pane);
         mainFrame.setVisible(true);
+        //TODO make whole UI cleaner
+        //TODO make it so same link doesn't print twice --> array?
     }
 
     private void showEventDemo() {
