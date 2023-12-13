@@ -10,7 +10,7 @@ public class Search implements ActionListener {
     private JLabel statusLabel;
     private JLabel urlLabel, keywordLabel;
 
-    private JPanel controlPanel;
+    private JPanel controlPanel,urlPanel, keywordPanel, resultsArea, upperPanel,lowerPanel;
 
     private JMenuBar mb;
     private JMenu file, edit, help, more;
@@ -35,67 +35,72 @@ public class Search implements ActionListener {
     private void prepareGUI() {
         mainFrame = new JFrame("Java SWING Examples");
         mainFrame.setSize(WIDTH, HEIGHT);
-        mainFrame.setLayout(new GridLayout(4, 1));
+        mainFrame.setLayout(new GridLayout(2, 1));
 
-        //menu at top
-        cut = new JMenuItem("cut");
-        copy = new JMenuItem("copy");
-        paste = new JMenuItem("paste");
-        share = new JMenuItem("share");
-        selectAll = new JMenuItem("selectAll");
-        cut.addActionListener(this);
-        copy.addActionListener(this);
-        paste.addActionListener(this);
-        share.addActionListener(this);
-        selectAll.addActionListener(this);
+        upperPanel=new JPanel();
+        upperPanel.setLayout(new GridLayout(1,2));
+        lowerPanel=new JPanel();
+        lowerPanel.setLayout(new BorderLayout());
+        mainFrame.add(upperPanel);
+        mainFrame.add(lowerPanel);
 
-//        mb = new JMenuBar();
-//        file = new JMenu("File");
-//        edit = new JMenu("Edit");
-//        help = new JMenu("Help");
-//        more = new JMenu("More");
-//        edit.add(cut);
-//        edit.add(copy);
-//        edit.add(paste);
-//        edit.add(selectAll);
-//        more.add(share);
-//        mb.add(file);
-//        mb.add(edit);
-//        mb.add(help);
-//        mb.add(more);
-        //end menu at top
+        urlPanel= new JPanel();
+        urlPanel.setLayout(new BorderLayout());
+        upperPanel.add(urlPanel);
+        keywordPanel= new JPanel();
+        keywordPanel.setLayout(new BorderLayout());
+        upperPanel.add(keywordPanel);
+//
         urlLabel = new JLabel("enter URL");
         keywordLabel = new JLabel("enter keyword");
+        keywordPanel.add(keywordLabel,BorderLayout.NORTH);
+        urlPanel.add(urlLabel,BorderLayout.NORTH);
 
 
         ta = new JTextField();
         ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
         tb = new JTextField();
+        urlPanel.add(ta,BorderLayout.CENTER);
+        keywordPanel.add(tb,BorderLayout.CENTER);
         tb.setBounds(50,5,WIDTH-200, HEIGHT-50);
         resultsPanel = new JTextArea();
+
+      
+
         //mainFrame.add(mb);  //add menu bar
-        mainFrame.add(urlLabel);
-        mainFrame.add(ta);
-        mainFrame.add(keywordLabel);//add typing area
-        mainFrame.add(tb);
+//      mainFrame.add(urlLabel);
+//      //  mainFrame.add(ta);
+//        mainFrame.add(keywordLabel);//add typing area
+     //   mainFrame.add(tb);
        // mainFrame.setJMenuBar(mb); //set menu bar
 
-        statusLabel = new JLabel("", JLabel.CENTER);
-        statusLabel.setSize(350, 100);
+//        statusLabel = new JLabel("", JLabel.CENTER);
+//        statusLabel.setSize(350, 100);
 
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
                 System.exit(0);
             }
         });
-        controlPanel = new JPanel();
-        controlPanel.setLayout(new FlowLayout()); //set the layout of the pannel
+//        controlPanel = new JPanel();
+//        controlPanel.setLayout(new BorderLayout()); //set the layout of the pannel
 
-        mainFrame.add(controlPanel);
-        mainFrame.add(statusLabel);
-        mainFrame.add(resultsPanel);
+        JButton okButton = new JButton("Search");
+
+
+        okButton.addActionListener(new ButtonClickListener());
+
+
+//        mainFrame.add(okButton);
+        lowerPanel.add(okButton,BorderLayout.NORTH);
+        lowerPanel.add(resultsPanel,BorderLayout.CENTER);
+//        mainFrame.add(controlPanel);
+//        controlPanel.add(ta,BorderLayout.WEST);
+//        controlPanel.add(tb,BorderLayout.EAST);
+       // mainFrame.add(statusLabel);
+       // mainFrame.add(resultsPanel);
         JScrollPane pane = new JScrollPane(resultsPanel);
-        mainFrame.add(pane);
+        lowerPanel.add(pane);
         mainFrame.setVisible(true);
         //TODO make whole UI cleaner
         //TODO make it so same link doesn't print twice --> array?
@@ -103,24 +108,11 @@ public class Search implements ActionListener {
 
     private void showEventDemo() {
 
-        JButton okButton = new JButton("Search");
-        JButton submitButton = new JButton("Submit");
-        JButton cancelButton = new JButton("Cancel");
-        JButton StopButton = new JButton("Stop");
-
-        okButton.setActionCommand("Search");
-        submitButton.setActionCommand("Submit");
-        cancelButton.setActionCommand("Cancel");
-        StopButton.setActionCommand("Stop");
-
-        okButton.addActionListener(new ButtonClickListener());
-        submitButton.addActionListener(new ButtonClickListener());
-        cancelButton.addActionListener(new ButtonClickListener());
-        StopButton.addActionListener(new ButtonClickListener());
 
 
 
-        controlPanel.add(okButton);
+
+        //controlPanel.add(okButton);
 //        controlPanel.add(submitButton);
 //        controlPanel.add(cancelButton);
 //        controlPanel.add(StopButton);
@@ -145,7 +137,7 @@ public class Search implements ActionListener {
             String command = e.getActionCommand();
 
             if (command.equals("Search")) {
-                statusLabel.setText("Search Button clicked.");
+
                 int endSpot=0;
                 int indexSpot=0;
                 int beginIndex =0;
