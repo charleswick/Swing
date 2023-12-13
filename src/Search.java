@@ -102,7 +102,6 @@ public class Search implements ActionListener {
         JScrollPane pane = new JScrollPane(resultsPanel);
         lowerPanel.add(pane);
         mainFrame.setVisible(true);
-        //TODO make whole UI cleaner
         //TODO make it so same link doesn't print twice --> array?
     }
 
