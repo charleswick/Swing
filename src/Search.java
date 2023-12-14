@@ -230,6 +230,7 @@ public class Search implements ActionListener {
                     reader.close();
                 } catch(Exception ex) {
                     System.out.println(ex);
+                    resultsPanel.append(ex.toString());
                 }
             } else if (command.equals("Submit")) {
                 statusLabel.setText("Submit Button clicked.");
