@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.*;
 import javax.swing.*;
 
 public class Search implements ActionListener {
@@ -102,7 +104,7 @@ public class Search implements ActionListener {
         JScrollPane pane = new JScrollPane(resultsPanel);
         lowerPanel.add(pane);
         mainFrame.setVisible(true);
-        //TODO make it so same link doesn't print twice --> array?
+       
     }
 
     private void showEventDemo() {
@@ -133,6 +135,8 @@ public class Search implements ActionListener {
 
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            ArrayList<String> links = new ArrayList<String>();
+            ArrayList<String> newList = new ArrayList<String>();
             String command = e.getActionCommand();
 
             if (command.equals("Search")) {
@@ -177,7 +181,8 @@ public class Search implements ActionListener {
                                     endSpot = line.indexOf("\'", beginIndex+1);
                                 }
                             }
-                            resultsPanel.append(line.substring(beginIndex,endSpot)+'\n');
+                            links.add(line.substring(beginIndex,endSpot)+'\n');
+
 
 //                     indexSpot = line.indexOf("href=");
 //                     if(line.contains("\"")&&line.contains("www")){
@@ -231,8 +236,36 @@ public class Search implements ActionListener {
                 } catch(Exception ex) {
                     System.out.println(ex);
                     resultsPanel.append(ex.toString());
+                    resultsPanel.setBackground(Color.red);
+                    //TODO make errors red text, make good links green text
                 }
-            } else if (command.equals("Submit")) {
+
+                for(int i = 0; i <links.size();i++){
+
+
+
+                    // Traverse through the first list
+                    for (int z = 0; z <links.size();z++) {
+
+                        // If this element is not present in newList
+                        // then add it
+                        if (!newList.contains(links.get(z))) {
+
+                            newList.add(links.get(z));
+                        }
+                    }
+
+
+
+
+                }
+                for(int b = 0; b< newList.size();b++){
+                    resultsPanel.append(newList.get(b));
+                }
+            }
+
+
+            else if (command.equals("Submit")) {
                 statusLabel.setText("Submit Button clicked.");
             } else if (command.equals("Cancel")){
                 statusLabel.setText("Cancel Button clicked.");
