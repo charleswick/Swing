@@ -154,8 +154,8 @@ public class Search implements ActionListener {
                     );
                     String line;
                     while ( (line = reader.readLine()) != null ) {
-                        if(line.contains("href=")&&line.contains(keyword.toLowerCase())){
-                            //System.out.println("og"+line);
+                        while(line.contains("href=")&&line.contains(keyword.toLowerCase())){
+                            System.out.println("og"+line);
 //
                             if (line.contains("https")){
                                 beginIndex = line.indexOf("https");
@@ -225,7 +225,7 @@ public class Search implements ActionListener {
 
 
 
-
+                            line = line.substring(beginIndex);
                         }
 
 
@@ -237,7 +237,6 @@ public class Search implements ActionListener {
                     System.out.println(ex);
                     resultsPanel.append(ex.toString());
                     resultsPanel.setBackground(Color.red);
-                    //TODO make errors red text, make good links green text
                 }
 
                 for(int i = 0; i <links.size();i++){
